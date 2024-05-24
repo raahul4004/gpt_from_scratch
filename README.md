@@ -1,99 +1,105 @@
-GPT from Scratch
+# GPT from Scratch
 
-This repository contains an implementation of a Generative Pre-trained Transformer (GPT) from scratch using PyTorch. The model is trained on a character-level language modeling task. This implementation serves as a basic starting point for understanding and experimenting with GPT models.
-Overview
+This repository contains an implementation of a GPT (Generative Pretrained Transformer) model from scratch using PyTorch. The code demonstrates the complete process of building, training, and generating text with a transformer-based language model. This project is designed to be a hands-on learning experience for understanding the inner workings of transformer models.
 
-This project includes:
+## Features
 
-    Data preprocessing
-    Model architecture
-    Training loop
-    Text generation
+- Tokenizes and processes text data
+- Implements key components of a transformer model including multi-head self-attention and feed-forward neural networks
+- Trains the model on a given text dataset
+- Generates new text based on the trained model
 
-Requirements
+## Requirements
 
-    Python 3.7+
-    PyTorch
+- Python 3.6 or higher
+- PyTorch
+- CUDA (optional, for GPU acceleration)
 
-Setup
+## Getting Started
 
-    Clone the repository:
+### Installation
 
+1. Clone the repository:
+    ```bash
     git clone https://github.com/yourusername/gpt-from-scratch.git
     cd gpt-from-scratch
+    ```
 
-    Install the required dependencies:
-
+2. Install the required packages:
+    ```bash
     pip install torch
+    ```
 
-    Place your training data in a file named input.txt in the project directory.
+### Usage
 
-Hyperparameters
+1. Prepare your training data:
+    - Place your text data in a file named `input.txt` in the root directory of the project.
 
-The following hyperparameters are used for training the model:
-
-batch_size = 64        # Number of sequences processed in parallel
-block_size = 256       # Length of the context for predictions
-max_iters = 5000       # Number of training iterations
-learning_rate = 3e-4   # Learning rate for the optimizer
-device = "cuda" if torch.cuda.is_available() else "cpu"
-eval_iters = 200       # Number of evaluation iterations
-eval_interval = 500    # Interval for evaluating the model on validation set
-n_embd = 384           # Embedding dimension
-n_head = 6             # Number of attention heads
-n_layer = 6            # Number of transformer layers
-dropout = 0.2          # Dropout rate
-
-Usage
-Data Preparation
-
-Ensure your input.txt file contains the text data you want to train on. The code reads this file, builds a vocabulary of unique characters, and splits the data into training and validation sets.
-Training
-
-Run the script to start training the model:
-
-python train.py
-
-During training, the model's loss on both the training and validation sets will be periodically printed.
-Text Generation
-
-After training, the model generates text based on a given context. The generated text will be printed at the end of the training script.
-Code Explanation
-Model Components
-Self-Attention Head
-
-The Head class implements a single head of self-attention.
-Multi-Head Attention
-
-The MultiHeadAttention class combines multiple attention heads.
-FeedForward Network
-
-The FeedForward class implements a simple feed-forward neural network.
-Transformer Block
-
-The Block class represents a transformer block, which consists of multi-head attention followed by a feed-forward network.
-GPT Language Model
-
-The GPTLanguageModel class combines all the components to form the GPT model. It includes methods for forward propagation and text generation.
-Training Loop
-
-The training loop iterates over the dataset, evaluates the model periodically, and prints the training and validation losses. After training, the model generates text based on a given context.
-Example
-
-Below is an example of how to run the script and generate text:
-
-    Prepare input.txt with your training data.
-    Run the training script:
-
+2. Run the training script:
+    ```bash
     python train.py
+    ```
 
-    The script will print the generated text at the end of the training process.
+### Code Overview
 
-Notes
+#### Hyperparameters and Configuration
 
-    This implementation is a basic starting point. For more advanced use cases, consider using well-established libraries such as Hugging Face's transformers.
-    Adjust hyperparameters as needed based on your specific dataset and computational resources.
+```python
+batch_size = 64
+block_size = 256
+max_iters = 5000
+learning_rate = 3e-4
+device = "cuda" if torch.cuda.is_available() else "cpu"
+eval_iters = 200
+eval_interval = 500
+n_embd = 384
+n_head = 6
+n_layer = 6
+dropout = 0.2
+```
 
-License
+#### Data Preparation
 
+- The text data is read from `input.txt`.
+- Characters are encoded into integers and split into training and validation sets.
+
+#### Model Components
+
+- **Head**: One head of self-attention.
+- **MultiHeadAttention**: Multiple self-attention heads in parallel.
+- **FeedForward**: A feed-forward neural network.
+- **Block**: A transformer block consisting of multi-head attention and feed-forward layers.
+- **GPTLanguageModel**: The main model combining the embedding layers, transformer blocks, and a linear layer for output.
+
+#### Training Loop
+
+- The model is trained using the AdamW optimizer.
+- Loss is calculated using cross-entropy and evaluated on both training and validation sets.
+- The model's performance is logged at regular intervals.
+
+#### Text Generation
+
+- The `generate` method in `GPTLanguageModel` is used to generate new text sequences based on the trained model.
+
+### Example
+
+```bash
+python train.py
+```
+
+This will train the model on the data provided in `input.txt` and periodically output training and validation losses.
+
+## Acknowledgements
+
+This project is inspired by various implementations of GPT models and aims to provide a clear and educational implementation of transformer models from scratch.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Feel free to modify and expand upon this project. Contributions are welcome! If you encounter any issues or have suggestions, please open an issue or submit a pull request.
+
+Happy coding!
 
